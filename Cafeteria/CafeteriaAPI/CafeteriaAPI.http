@@ -1,0 +1,56 @@
+@CafeteriaAPI_HostAddress = http://localhost:5101
+
+### Ver todos los productos
+GET {{CafeteriaAPI_HostAddress}}/api/productos
+Accept: application/json
+
+### Buscar productos por categoria
+GET {{CafeteriaAPI_HostAddress}}/api/productos/ObtenerProductosPorCategoria?categoria=panaderia
+
+### Crear un producto
+POST {{CafeteriaAPI_HostAddress}}/api/productos
+Content-Type: application/json
+
+{
+  "nombre": "Té chai",
+  "categoria": "Bebida caliente",
+  "precio": 5200,
+  "stock": 30
+}
+
+### Crear un cliente
+POST {{CafeteriaAPI_HostAddress}}/api/clientes
+Content-Type: application/json
+
+{
+  "nombre": "Camila Rojas",
+  "telefono": "3205551122"
+}
+
+### Crear un pedido (cliente 1 tiene descuento por sus puntos)
+POST {{CafeteriaAPI_HostAddress}}/api/pedidos
+Content-Type: application/json
+
+{
+  "clienteId": 1,
+  "items": [
+    { "productoId": 2, "cantidad": 2 },
+    { "productoId": 6, "cantidad": 3 }
+  ]
+}
+
+### Cambiar el estado de un pedido
+PUT {{CafeteriaAPI_HostAddress}}/api/pedidos/1/estado
+Content-Type: application/json
+
+{
+  "estado": "Preparando"
+}
+
+### Cancelar un pedido (devuelve el stock)
+PUT {{CafeteriaAPI_HostAddress}}/api/pedidos/1/estado
+Content-Type: application/json
+
+{
+  "estado": "Cancelado"
+}
